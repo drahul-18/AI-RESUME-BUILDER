@@ -6,7 +6,8 @@ import { ProjectsFormSection } from '../components/builder/ProjectsFormSection';
 import { SkillsFormSection } from '../components/builder/SkillsFormSection';
 import { LivePreview } from '../components/builder/LivePreview';
 import { ATSScoreCard } from '../components/builder/ATSScoreCard';
-import { TemplateTabs } from '../components/builder/TemplateTabs';
+import { TemplatePicker } from '../components/builder/TemplatePicker';
+import { ColorThemePicker } from '../components/builder/ColorThemePicker';
 
 export function Builder() {
   const { data, setData, loadSample } = useResume();
@@ -16,7 +17,6 @@ export function Builder() {
       <div className="builder-header">
         <h1>Resume Builder</h1>
         <div className="builder-header-actions">
-          <TemplateTabs />
           <button type="button" onClick={loadSample} className="btn-load-sample">
           Load Sample Data
         </button>
@@ -94,6 +94,10 @@ export function Builder() {
         </aside>
 
         <main className="builder-preview">
+          <div className="preview-panel-controls">
+            <TemplatePicker />
+            <ColorThemePicker />
+          </div>
           <ATSScoreCard data={data} />
           <LivePreview data={data} />
         </main>

@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { useResume } from '../context/ResumeContext';
 import { useTemplate } from '../context/TemplateContext';
-import { TemplateTabs } from '../components/builder/TemplateTabs';
+import { TemplatePicker } from '../components/builder/TemplatePicker';
+import { ColorThemePicker } from '../components/builder/ColorThemePicker';
+import { Toast } from '../components/Toast';
 import { resumeToPlainText, isResumeIncomplete } from '../utils/exportResume';
 import type { ResumeData } from '../types/resume';
 
 function PreviewResume({ data }: { data: ResumeData }) {
-  const { template } = useTemplate();
+  const { template, accentColor } = useTemplate();
 
-  return (
-    <article className={`preview-page-resume preview-page-resume--${template}`} data-template={template}>
+  const sidebarContent = (
+    <>
       <header className="preview-resume-header">
         <h1>{data.personal.name || 'Your Name'}</h1>
         <div className="preview-resume-contact">
@@ -18,7 +20,51 @@ function PreviewResume({ data }: { data: ResumeData }) {
           {data.personal.location && <span>{data.personal.location}</span>}
         </div>
       </header>
+      {(data.skills.technical.length > 0 || data.skills.soft.length > 0 || data.skills.tools.length > 0) && (
+        <section>
+          <h2>Skills</h2>
+          <div className="preview-resume-skills-grouped">
+            {data.skills.technical.length > 0 && (
+              <div className="preview-resume-skill-group">
+                <span className="preview-resume-skill-label">Technical:</span>
+                {data.skills.technical.map((s) => (
+                  <span key={s} className="preview-resume-skill-pill">{s}</span>
+                ))}
+              </div>
+            )}
+            {data.skills.soft.length > 0 && (
+              <div className="preview-resume-skill-group">
+                <span className="preview-resume-skill-label">Soft:</span>
+                {data.skills.soft.map((s) => (
+                  <span key={s} className="preview-resume-skill-pill">{s}</span>
+                ))}
+              </div>
+            )}
+            {data.skills.tools.length > 0 && (
+              <div className="preview-resume-skill-group">
+                <span className="preview-resume-skill-label">Tools:</span>
+                {data.skills.tools.map((s) => (
+                  <span key={s} className="preview-resume-skill-pill">{s}</span>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+      {(data.links.github || data.links.linkedin) && (
+        <section>
+          <h2>Links</h2>
+          <div className="preview-resume-links">
+            {data.links.github && <a href={data.links.github} target="_blank" rel="noreferrer">GitHub</a>}
+            {data.links.linkedin && <a href={data.links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>}
+          </div>
+        </section>
+      )}
+    </>
+  );
 
+  const mainContent = (
+    <>
       {data.summary && (
         <section>
           <h2>Summary</h2>
@@ -90,7 +136,7 @@ function PreviewResume({ data }: { data: ResumeData }) {
         </section>
       )}
 
-      {(data.skills.technical.length > 0 || data.skills.soft.length > 0 || data.skills.tools.length > 0) && (
+      {template !== 'modern' && (data.skills.technical.length > 0 || data.skills.soft.length > 0 || data.skills.tools.length > 0) && (
         <section>
           <h2>Skills</h2>
           <div className="preview-resume-skills-grouped">
@@ -122,7 +168,7 @@ function PreviewResume({ data }: { data: ResumeData }) {
         </section>
       )}
 
-      {(data.links.github || data.links.linkedin) && (
+      {template !== 'modern' && (data.links.github || data.links.linkedin) && (
         <section>
           <h2>Links</h2>
           <div className="preview-resume-links">
@@ -131,6 +177,33 @@ function PreviewResume({ data }: { data: ResumeData }) {
           </div>
         </section>
       )}
+    </>
+  );
+
+  return (
+    <article
+      className={`preview-page-resume preview-page-resume--${template}`}
+      data-template={template}
+      style={{ '--resume-accent': accentColor } as React.CSSProperties}
+    >
+      {template === 'modern' ? (
+        <div className="preview-resume-modern-layout">
+          <aside className="preview-resume-sidebar">{sidebarContent}</aside>
+          <main className="preview-resume-main">{mainContent}</main>
+        </div>
+      ) : (
+        <>
+          <header className="preview-resume-header">
+            <h1>{data.personal.name || 'Your Name'}</h1>
+            <div className="preview-resume-contact">
+              {data.personal.email && <span>{data.personal.email}</span>}
+              {data.personal.phone && <span>{data.personal.phone}</span>}
+              {data.personal.location && <span>{data.personal.location}</span>}
+            </div>
+          </header>
+          {mainContent}
+        </>
+      )}
     </article>
   );
 }
@@ -138,10 +211,12 @@ function PreviewResume({ data }: { data: ResumeData }) {
 export function Preview() {
   const { data } = useResume();
   const [showIncompleteWarning, setShowIncompleteWarning] = useState(false);
+  const [showPdfToast, setShowPdfToast] = useState(false);
 
   const handlePrint = () => {
     if (isResumeIncomplete(data)) setShowIncompleteWarning(true);
     window.print();
+    setShowPdfToast(true);
   };
 
   const handleCopyText = async () => {
@@ -162,8 +237,17 @@ export function Preview() {
 
   return (
     <div className="preview-page">
+      {showPdfToast && (
+        <Toast
+          message="PDF export ready! Check your downloads."
+          onClose={() => setShowPdfToast(false)}
+        />
+      )}
       <div className="preview-page-header no-print">
-        <TemplateTabs />
+        <div className="preview-panel-controls">
+          <TemplatePicker />
+          <ColorThemePicker />
+        </div>
         <div className="preview-export-actions">
           {showIncompleteWarning && (
             <span className="preview-incomplete-warning">

@@ -667,6 +667,130 @@
   top: 1rem;
 }
 
+/* Preview Panel Controls: Template + Color Picker */
+.preview-panel-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.template-picker,
+.color-theme-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.template-picker-label,
+.color-theme-picker-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.template-thumbnails {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.template-thumbnail {
+  width: 120px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-input);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.template-thumbnail:hover {
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+.template-thumbnail.active {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.template-thumbnail-sketch {
+  width: 100%;
+  height: 70px;
+  border-radius: 4px;
+  background: #f0f0f0;
+}
+
+.template-thumbnail-sketch--classic {
+  background: linear-gradient(to bottom, #e5e5e5 0%, #e5e5e5 15%, transparent 15%, transparent 25%, #e5e5e5 25%, #e5e5e5 28%, transparent 28%, transparent 45%, #e5e5e5 45%, #e5e5e5 48%, transparent 48%);
+}
+
+.template-thumbnail-sketch--modern {
+  background: linear-gradient(to right, #d0d0d0 0%, #d0d0d0 35%, #f5f5f5 35%, #f5f5f5 100%);
+}
+
+.template-thumbnail-sketch--minimal {
+  background: #f8f8f8;
+}
+
+.template-thumbnail-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.template-thumbnail-check {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  font-size: 0.9rem;
+  color: #3b82f6;
+}
+
+.template-thumbnail {
+  position: relative;
+}
+
+.color-theme-circles {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.color-theme-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.color-theme-circle:hover {
+  transform: scale(1.1);
+}
+
+.color-theme-circle.active {
+  border-color: #333;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.75rem 1.25rem;
+  background: #111;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  z-index: 9999;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
 /* ATS Score Card */
 .ats-score-card {
   background: var(--bg-panel);
@@ -769,6 +893,50 @@
   border-radius: 8px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
   overflow: hidden;
+  --resume-accent: hsl(168, 60%, 40%);
+}
+
+
+/* Live Preview: Modern two-column layout */
+.live-preview-modern-layout {
+  display: flex;
+  min-height: 100%;
+}
+
+.live-preview-sidebar {
+  width: 35%;
+  min-width: 140px;
+  padding: 1.5rem;
+  background: var(--resume-accent);
+  color: #fff;
+}
+
+.live-preview-sidebar .preview-header h1,
+.live-preview-sidebar .preview-contact {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.live-preview-sidebar .preview-section h2 {
+  border-bottom-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+.live-preview-sidebar .preview-skill-pill {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.live-preview-sidebar .preview-links a {
+  color: #fff;
+}
+
+.live-preview-main {
+  flex: 1;
+  padding: 1.5rem 2rem;
+}
+
+.live-preview-main .preview-section h2 {
+  border-bottom-color: var(--resume-accent);
 }
 
 .live-preview-paper {
@@ -800,7 +968,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid var(--resume-accent, #e5e5e5);
   padding-bottom: 0.25rem;
 }
 
@@ -911,33 +1079,31 @@
 
 /* Template variants: Live Preview */
 .live-preview--classic {
-  /* default - no overrides */
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.live-preview--classic .preview-header h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.live-preview--modern .live-preview-paper {
+  padding: 0;
+}
+
+.live-preview--modern .live-preview-sidebar .preview-header h1 {
+  font-size: 1.25rem;
 }
 
 .live-preview--modern {
   font-family: system-ui, -apple-system, sans-serif;
 }
 
-.live-preview--modern .live-preview-paper {
-  padding: 2.5rem;
-}
-
-.live-preview--modern .preview-header h1 {
-  font-size: 1.75rem;
-  letter-spacing: -0.02em;
-}
-
-.live-preview--modern .preview-section {
-  margin-top: 1.5rem;
-}
-
-.live-preview--modern .preview-section h2 {
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-}
-
 .live-preview--minimal .live-preview-paper {
-  padding: 1.5rem;
+  padding: 2rem;
+}
+
+.live-preview--minimal {
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
 .live-preview--minimal .preview-header h1 {
@@ -945,11 +1111,12 @@
 }
 
 .live-preview--minimal .preview-section {
-  margin-top: 0.9rem;
+  margin-top: 1.5rem;
 }
 
 .live-preview--minimal .preview-section h2 {
   font-size: 0.85rem;
+  border-bottom: none;
 }
 
 .live-preview--minimal .preview-section p,
@@ -972,10 +1139,14 @@
   max-width: 700px;
   margin: 0 auto 1.5rem;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+.preview-page-header .preview-panel-controls {
+  margin-bottom: 0;
 }
 
 .preview-export-actions {
@@ -1155,23 +1326,61 @@
 
 /* Template variants: Preview Page */
 .preview-page-resume--classic {
-  /* default */
+  font-family: Georgia, 'Times New Roman', serif;
 }
 
 .preview-page-resume--modern {
   font-family: system-ui, -apple-system, sans-serif;
 }
 
-.preview-page-resume--modern .preview-resume-header h1 {
-  font-size: 24pt;
+.preview-resume-modern-layout {
+  display: flex;
+  min-height: 100%;
 }
 
-.preview-page-resume--modern section {
-  margin-top: 1.5rem;
+.preview-resume-sidebar {
+  width: 35%;
+  min-width: 140px;
+  padding: 1.5rem;
+  background: var(--resume-accent);
+  color: #fff;
+}
+
+.preview-resume-sidebar .preview-resume-header h1,
+.preview-resume-sidebar .preview-resume-contact {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.preview-resume-sidebar section h2 {
+  border-bottom-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+.preview-resume-sidebar .preview-resume-skill-pill {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.preview-resume-sidebar .preview-resume-links a {
+  color: #fff;
+}
+
+.preview-resume-main {
+  flex: 1;
+  padding: 1.5rem 2rem;
+}
+
+.preview-resume-main section h2 {
+  border-bottom-color: var(--resume-accent);
+}
+
+.preview-page-resume section h2 {
+  border-bottom-color: var(--resume-accent, #333);
 }
 
 .preview-page-resume--minimal {
   font-size: 10pt;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
 .preview-page-resume--minimal .preview-resume-header h1 {
@@ -1179,7 +1388,11 @@
 }
 
 .preview-page-resume--minimal section {
-  margin-top: 0.9rem;
+  margin-top: 1.25rem;
+}
+
+.preview-page-resume--minimal section h2 {
+  border-bottom: none;
 }
 
 /* Resume Proof */
