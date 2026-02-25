@@ -443,6 +443,29 @@
   }
 }
 
+@media (max-width: 640px) {
+  .preview-page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .preview-header-left {
+    flex-direction: column;
+  }
+
+  .preview-export-actions {
+    flex-wrap: wrap;
+  }
+
+  .template-thumbnails {
+    flex-wrap: wrap;
+  }
+
+  .ats-circular-score {
+    align-self: flex-start;
+  }
+}
+
 .builder-form {
   display: flex;
   flex-direction: column;
@@ -873,6 +896,11 @@
   margin-bottom: 0;
 }
 
+.ats-improvement-points {
+  font-weight: 500;
+  opacity: 0.9;
+}
+
 /* Bullet Guidance */
 .bullet-guidance {
   display: flex;
@@ -1136,17 +1164,116 @@
 }
 
 .preview-page-header {
-  max-width: 700px;
+  max-width: 900px;
   margin: 0 auto 1.5rem;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
+}
+
+.preview-header-left {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: flex-start;
 }
 
 .preview-page-header .preview-panel-controls {
   margin-bottom: 0;
+}
+
+/* ATS Circular Score (Preview page) */
+.ats-circular-score {
+  padding: 1rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ats-circular-score-ring {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ats-circular-bg {
+  stroke: rgba(0, 0, 0, 0.1);
+}
+
+.ats-circular-fill {
+  transition: stroke-dashoffset 0.4s ease;
+}
+
+.ats-circular-score--red .ats-circular-fill {
+  stroke: #dc2626;
+}
+
+.ats-circular-score--amber .ats-circular-fill {
+  stroke: #d97706;
+}
+
+.ats-circular-score--green .ats-circular-fill {
+  stroke: #16a34a;
+}
+
+.ats-circular-score-value {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ats-circular-number {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ats-circular-max {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.ats-circular-score-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.ats-circular-score--red .ats-circular-score-label {
+  color: #dc2626;
+}
+
+.ats-circular-score--amber .ats-circular-score-label {
+  color: #d97706;
+}
+
+.ats-circular-score--green .ats-circular-score-label {
+  color: #16a34a;
+}
+
+.ats-circular-improvements {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  max-width: 220px;
+  text-align: left;
+}
+
+.ats-circular-improvements li {
+  margin-bottom: 0.25rem;
+}
+
+.ats-circular-points {
+  font-weight: 500;
+  opacity: 0.9;
 }
 
 .preview-export-actions {
@@ -1415,7 +1542,8 @@
 @media print {
   .no-print,
   .app-nav,
-  .preview-page-header {
+  .preview-page-header,
+  .ats-circular-score {
     display: none !important;
   }
 

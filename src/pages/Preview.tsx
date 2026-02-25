@@ -3,6 +3,7 @@ import { useResume } from '../context/ResumeContext';
 import { useTemplate } from '../context/TemplateContext';
 import { TemplatePicker } from '../components/builder/TemplatePicker';
 import { ColorThemePicker } from '../components/builder/ColorThemePicker';
+import { ATSCircularScore } from '../components/ATSCircularScore';
 import { Toast } from '../components/Toast';
 import { resumeToPlainText, isResumeIncomplete } from '../utils/exportResume';
 import type { ResumeData } from '../types/resume';
@@ -244,9 +245,12 @@ export function Preview() {
         />
       )}
       <div className="preview-page-header no-print">
-        <div className="preview-panel-controls">
-          <TemplatePicker />
-          <ColorThemePicker />
+        <div className="preview-header-left">
+          <div className="preview-panel-controls">
+            <TemplatePicker />
+            <ColorThemePicker />
+          </div>
+          <ATSCircularScore data={data} />
         </div>
         <div className="preview-export-actions">
           {showIncompleteWarning && (

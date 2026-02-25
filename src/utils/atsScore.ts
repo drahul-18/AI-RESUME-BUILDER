@@ -1,127 +1,108 @@
 import type { ResumeData } from '../types/resume';
 import { getTotalSkillCount } from '../types/resume';
 
-/** Check if text contains measurable impact (numbers, %, k, etc.) */
-function hasMeasurableImpact(text: string): boolean {
-  return /[\d%]|\bk\b/i.test(text);
+const ACTION_VERBS = [
+  'built',
+  'led',
+  'designed',
+  'improved',
+  'developed',
+  'created',
+  'implemented',
+  'managed',
+  'delivered',
+  'achieved',
+  'optimized',
+  'launched',
+];
+
+function summaryHasActionVerbs(summary: string): boolean {
+  const lower = summary.toLowerCase();
+  return ACTION_VERBS.some((verb) => lower.includes(verb));
 }
 
-/** Count words in text */
-function wordCount(text: string): number {
-  return text.trim().split(/\s+/).filter(Boolean).length;
+function hasExperienceWithBullets(data: ResumeData): boolean {
+  return data.experience.some((e) => e.description?.trim().length > 0);
 }
 
-/** Education entry has all required fields filled */
-function isEducationComplete(edu: ResumeData['education'][0]): boolean {
-  return !!(
-    edu.institution?.trim() &&
-    edu.degree?.trim() &&
-    edu.field?.trim() &&
-    edu.startDate?.trim() &&
-    edu.endDate?.trim()
-  );
+function hasEducationEntry(data: ResumeData): boolean {
+  return data.education.length > 0;
 }
 
 export function computeATSScore(data: ResumeData): number {
   let score = 0;
 
-  // +15 if summary length is 40–120 words
-  const summaryWords = wordCount(data.summary);
-  if (summaryWords >= 40 && summaryWords <= 120) score += 15;
-
-  // +10 if at least 2 projects
-  if (data.projects.length >= 2) score += 10;
-
-  // +10 if at least 1 experience entry
-  if (data.experience.length >= 1) score += 10;
-
-  // +10 if skills list has ≥ 8 items
-  if (getTotalSkillCount(data.skills) >= 8) score += 10;
-
-  // +10 if GitHub or LinkedIn link exists
-  if (data.links.github?.trim() || data.links.linkedin?.trim()) score += 10;
-
-  // +15 if any experience/project bullet contains a number (%, X, k, etc.)
-  const bullets = [
-    ...data.experience.map((e) => e.description),
-    ...data.projects.map((p) => p.description),
-  ];
-  if (bullets.some((b) => b && hasMeasurableImpact(b))) score += 15;
-
-  // +10 if education section has complete fields (at least one complete entry)
-  if (data.education.some(isEducationComplete)) score += 10;
+  if (data.personal.name?.trim()) score += 10;
+  if (data.personal.email?.trim()) score += 10;
+  if (data.summary?.trim().length > 50) score += 10;
+  if (hasExperienceWithBullets(data)) score += 15;
+  if (hasEducationEntry(data)) score += 10;
+  if (getTotalSkillCount(data.skills) >= 5) score += 10;
+  if (data.projects.length >= 1) score += 10;
+  if (data.personal.phone?.trim()) score += 5;
+  if (data.links.linkedin?.trim()) score += 5;
+  if (data.links.github?.trim()) score += 5;
+  if (summaryHasActionVerbs(data.summary)) score += 10;
 
   return Math.min(score, 100);
 }
 
-export function getATSSuggestions(data: ResumeData): string[] {
-  const suggestions: string[] = [];
+export type ATSScoreLabel = 'Needs Work' | 'Getting There' | 'Strong Resume';
 
-  const summaryWords = wordCount(data.summary);
-  if (summaryWords < 40 || summaryWords > 120) {
-    suggestions.push('Write a stronger summary (40–120 words).');
-  }
-
-  if (data.projects.length < 2) {
-    suggestions.push('Add at least 2 projects.');
-  }
-
-  const bullets = [
-    ...data.experience.map((e) => e.description),
-    ...data.projects.map((p) => p.description),
-  ];
-  if (!bullets.some((b) => b && hasMeasurableImpact(b))) {
-    suggestions.push('Add measurable impact (numbers) in bullets.');
-  }
-
-  if (getTotalSkillCount(data.skills) < 8) {
-    suggestions.push('Add more skills (target 8+).');
-  }
-
-  if (!data.links.github?.trim() && !data.links.linkedin?.trim()) {
-    suggestions.push('Add GitHub or LinkedIn link.');
-  }
-
-  if (data.experience.length < 1) {
-    suggestions.push('Add at least 1 experience entry.');
-  }
-
-  if (!data.education.some(isEducationComplete)) {
-    suggestions.push('Complete education section with all fields.');
-  }
-
-  return suggestions.slice(0, 3);
+export function getATSScoreLabel(score: number): ATSScoreLabel {
+  if (score <= 40) return 'Needs Work';
+  if (score <= 70) return 'Getting There';
+  return 'Strong Resume';
 }
 
-/** Top 3 Improvements for the Improvement Panel */
-export function getTopImprovements(data: ResumeData): string[] {
-  const improvements: string[] = [];
+export function getATSScoreTier(score: number): 'red' | 'amber' | 'green' {
+  if (score <= 40) return 'red';
+  if (score <= 70) return 'amber';
+  return 'green';
+}
 
-  if (data.projects.length < 2) {
-    improvements.push('Add at least 2 projects to strengthen your profile.');
+export interface ATSImprovement {
+  message: string;
+  points: number;
+}
+
+export function getATSImprovements(data: ResumeData): ATSImprovement[] {
+  const improvements: ATSImprovement[] = [];
+
+  if (!data.personal.name?.trim()) {
+    improvements.push({ message: 'Add your name', points: 10 });
+  }
+  if (!data.personal.email?.trim()) {
+    improvements.push({ message: 'Add your email', points: 10 });
+  }
+  if (!data.summary?.trim() || data.summary.trim().length <= 50) {
+    improvements.push({ message: 'Add a professional summary (50+ chars)', points: 10 });
+  }
+  if (!summaryHasActionVerbs(data.summary)) {
+    improvements.push({ message: 'Use action verbs in summary (built, led, designed, etc.)', points: 10 });
+  }
+  if (!hasExperienceWithBullets(data)) {
+    improvements.push({ message: 'Add at least 1 experience entry with bullets', points: 15 });
+  }
+  if (!hasEducationEntry(data)) {
+    improvements.push({ message: 'Add at least 1 education entry', points: 10 });
+  }
+  if (getTotalSkillCount(data.skills) < 5) {
+    improvements.push({ message: 'Add at least 5 skills', points: 10 });
+  }
+  if (data.projects.length < 1) {
+    improvements.push({ message: 'Add at least 1 project', points: 10 });
+  }
+  if (!data.personal.phone?.trim()) {
+    improvements.push({ message: 'Add your phone number', points: 5 });
+  }
+  if (!data.links.linkedin?.trim()) {
+    improvements.push({ message: 'Add LinkedIn link', points: 5 });
+  }
+  if (!data.links.github?.trim()) {
+    improvements.push({ message: 'Add GitHub link', points: 5 });
   }
 
-  const bullets = [
-    ...data.experience.map((e) => e.description),
-    ...data.projects.map((p) => p.description),
-  ];
-  if (!bullets.some((b) => b && /[\d%]|\bk\b/i.test(b))) {
-    improvements.push('Add measurable impact (numbers, %, metrics) in bullets.');
-  }
-
-  const summaryWords = data.summary.trim().split(/\s+/).filter(Boolean).length;
-  if (summaryWords < 40) {
-    improvements.push('Expand your summary to 40+ words for better impact.');
-  }
-
-  if (getTotalSkillCount(data.skills) < 8) {
-    improvements.push('Expand skills list to 8+ items.');
-  }
-
-  if (data.experience.length < 1) {
-    improvements.push('Add internship or project work as experience.');
-  }
-
-  return improvements.slice(0, 3);
+  return improvements;
 }
 

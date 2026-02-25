@@ -1,4 +1,4 @@
-import { computeATSScore, getATSSuggestions, getTopImprovements } from '../../utils/atsScore';
+import { computeATSScore, getATSImprovements } from '../../utils/atsScore';
 import type { ResumeData } from '../../types/resume';
 
 interface Props {
@@ -7,8 +7,7 @@ interface Props {
 
 export function ATSScoreCard({ data }: Props) {
   const score = computeATSScore(data);
-  const suggestions = getATSSuggestions(data);
-  const improvements = getTopImprovements(data);
+  const improvements = getATSImprovements(data);
 
   return (
     <div className="ats-score-card">
@@ -24,19 +23,14 @@ export function ATSScoreCard({ data }: Props) {
         />
       </div>
       <div className="ats-score-value">{score}/100</div>
-      {suggestions.length > 0 && (
-        <ul className="ats-suggestions">
-          {suggestions.map((s, i) => (
-            <li key={i}>{s}</li>
-          ))}
-        </ul>
-      )}
       {improvements.length > 0 && (
         <div className="ats-improvements">
-          <h4 className="ats-improvements-label">Top 3 Improvements</h4>
+          <h4 className="ats-improvements-label">Improvements</h4>
           <ul className="ats-improvements-list">
-            {improvements.map((s, i) => (
-              <li key={i}>{s}</li>
+            {improvements.map((i, idx) => (
+              <li key={idx}>
+                {i.message} <span className="ats-improvement-points">(+{i.points})</span>
+              </li>
             ))}
           </ul>
         </div>
