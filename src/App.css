@@ -279,3 +279,435 @@
 .copy-final-btn:hover {
   opacity: 0.9;
 }
+
+/* ========== AI Resume Builder (KodNest Premium) ========== */
+
+.resume-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-main);
+}
+
+.resume-layout-content {
+  flex: 1;
+}
+
+/* App Nav */
+.app-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1.5rem;
+  background: var(--bg-topbar);
+  border-bottom: 1px solid var(--border);
+}
+
+.app-nav-brand {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.app-nav-brand:hover {
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+.app-nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.app-nav-links a {
+  font-size: 0.95rem;
+  color: inherit;
+  opacity: 0.85;
+  text-decoration: none;
+}
+
+.app-nav-links a:hover {
+  opacity: 1;
+}
+
+.app-nav-links a.active {
+  opacity: 1;
+  font-weight: 600;
+}
+
+/* Home */
+.home-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 60px);
+  padding: 2rem;
+}
+
+.home-hero {
+  text-align: center;
+  max-width: 36rem;
+}
+
+.home-headline {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
+}
+
+.home-subline {
+  font-size: 1.1rem;
+  opacity: 0.85;
+  margin: 0 0 2rem;
+}
+
+.home-cta {
+  display: inline-block;
+  padding: 0.75rem 1.75rem;
+  background: var(--accent);
+  color: white;
+  border-radius: 6px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.home-cta:hover {
+  opacity: 0.95;
+  text-decoration: none;
+}
+
+/* Builder */
+.builder-page {
+  padding: 1.5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.builder-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.builder-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.btn-load-sample {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.builder-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .builder-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.builder-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-section {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.form-section:last-of-type {
+  border-bottom: none;
+}
+
+.form-section h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.form-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.form-section-header h3 {
+  margin: 0;
+}
+
+.btn-add {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.form-field label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.form-field input,
+.form-field textarea {
+  padding: 0.5rem 0.6rem;
+  font-size: 0.95rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-input);
+  color: inherit;
+  font-family: inherit;
+}
+
+.form-field-full {
+  grid-column: 1 / -1;
+}
+
+.form-field-row {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-field-row input {
+  flex: 1;
+}
+
+.form-block {
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+}
+
+@media (prefers-color-scheme: light) {
+  .form-block {
+    background: rgba(0, 0, 0, 0.04);
+  }
+}
+
+.btn-remove {
+  margin-top: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+/* Live Preview (Builder) */
+.builder-preview {
+  position: sticky;
+  top: 1rem;
+}
+
+.live-preview {
+  background: #fff;
+  color: #111;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+.live-preview-paper {
+  padding: 2rem;
+  font-size: 0.9rem;
+}
+
+.preview-header h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.preview-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.preview-section {
+  margin-top: 1.25rem;
+}
+
+.preview-section h2 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 0.25rem;
+}
+
+.preview-section p {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.preview-entry {
+  margin-top: 0.75rem;
+}
+
+.preview-entry-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.5rem;
+}
+
+.preview-entry-header strong {
+  font-weight: 600;
+}
+
+.preview-meta {
+  font-size: 0.8rem;
+  opacity: 0.75;
+}
+
+.preview-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.preview-links a {
+  color: #111;
+}
+
+/* Preview Page (clean B&W) */
+.preview-page {
+  min-height: calc(100vh - 60px);
+  padding: 2rem;
+  background: #fafafa;
+}
+
+@media (prefers-color-scheme: dark) {
+  .preview-page {
+    background: #0d0d0d;
+  }
+}
+
+.preview-page-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  color: #111;
+  padding: 3rem;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+  .preview-page-inner {
+    background: #111;
+    color: #fafafa;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.preview-page-resume {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 11pt;
+  line-height: 1.5;
+}
+
+.preview-resume-header h1 {
+  margin: 0 0 0.35rem;
+  font-size: 22pt;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.preview-resume-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+  font-size: 10pt;
+  opacity: 0.8;
+}
+
+.preview-page-resume section {
+  margin-top: 1.25rem;
+}
+
+.preview-page-resume section h2 {
+  margin: 0 0 0.5rem;
+  font-size: 11pt;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.2rem;
+}
+
+.preview-page-resume section p {
+  margin: 0.25rem 0 0;
+}
+
+.preview-resume-entry {
+  margin-top: 0.6rem;
+}
+
+.preview-resume-entry-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.5rem;
+}
+
+.preview-resume-entry-head strong {
+  font-weight: 600;
+}
+
+.preview-resume-meta {
+  font-size: 9pt;
+  opacity: 0.75;
+}
+
+.preview-resume-links a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.preview-resume-links a:hover {
+  opacity: 0.8;
+}
+
+/* Resume Proof */
+.resume-proof-page {
+  padding: 2rem;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.resume-proof-page h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+}
+
+.resume-proof-page p {
+  opacity: 0.85;
+}
