@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import type { ResumeData } from '../types/resume';
 import { emptyResume, sampleResume } from '../types/resume';
@@ -9,13 +9,59 @@ interface ResumeContextType {
   loadSample: () => void;
 }
 
+const STORAGE_KEY = 'resumeBuilderData';
+
+function loadFromStorage(): ResumeData {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return emptyResume();
+    const parsed = JSON.parse(raw) as ResumeData;
+    if (parsed && typeof parsed === 'object') {
+      return {
+        personal: parsed.personal ?? emptyResume().personal,
+        summary: typeof parsed.summary === 'string' ? parsed.summary : '',
+        education: Array.isArray(parsed.education) ? parsed.education : [],
+        experience: Array.isArray(parsed.experience) ? parsed.experience : [],
+        projects: Array.isArray(parsed.projects) ? parsed.projects : [],
+        skills: Array.isArray(parsed.skills) ? parsed.skills : [],
+        links: parsed.links ?? emptyResume().links,
+      };
+    }
+  } catch {
+    // ignore parse errors
+  }
+  return emptyResume();
+}
+
+function saveToStorage(data: ResumeData): void {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch {
+    // ignore storage errors
+  }
+}
+
 const ResumeContext = createContext<ResumeContextType | null>(null);
 
 export function ResumeProvider({ children }: { children: ReactNode }) {
-  const [data, setData] = useState<ResumeData>(emptyResume);
+  const [data, setDataState] = useState<ResumeData>(loadFromStorage);
+
+  useEffect(() => {
+    saveToStorage(data);
+  }, [data]);
+
+  const setData = useCallback(
+    (updater: ResumeData | ((prev: ResumeData) => ResumeData)) => {
+      setDataState((prev) => {
+        const next = typeof updater === 'function' ? updater(prev) : updater;
+        return next;
+      });
+    },
+    []
+  );
 
   const loadSample = useCallback(() => {
-    setData(sampleResume());
+    setDataState(sampleResume());
   }, []);
 
   return (

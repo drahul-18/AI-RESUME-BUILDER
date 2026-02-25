@@ -20,24 +20,6 @@ function PreviewResume({ data }: { data: ResumeData }) {
         </section>
       )}
 
-      {data.experience.length > 0 && (
-        <section>
-          <h2>Experience</h2>
-          {data.experience.map((exp) => (
-            <div key={exp.id} className="preview-resume-entry">
-              <div className="preview-resume-entry-head">
-                <strong>{exp.role}</strong>
-                <span>{exp.company}</span>
-                <span className="preview-resume-meta">
-                  {exp.startDate} – {exp.endDate} · {exp.location}
-                </span>
-              </div>
-              {exp.description && <p>{exp.description}</p>}
-            </div>
-          ))}
-        </section>
-      )}
-
       {data.education.length > 0 && (
         <section>
           <h2>Education</h2>
@@ -54,6 +36,24 @@ function PreviewResume({ data }: { data: ResumeData }) {
           ))}
         </section>
       )}
+
+      {data.experience.length > 0 && (
+        <section>
+          <h2>Experience</h2>
+          {data.experience.map((exp) => (
+            <div key={exp.id} className="preview-resume-entry">
+              <div className="preview-resume-entry-head">
+                <strong>{exp.role}</strong>
+                <span>{exp.company}</span>
+                <span className="preview-resume-meta">
+                  {exp.startDate} – {exp.endDate} · {exp.location}
+                </span>
+              </div>
+              {exp.description && <p>{exp.description}</p>}
+            </div>
+          ))}
+          </section>
+        )}
 
       {data.projects.length > 0 && (
         <section>

@@ -4,6 +4,7 @@ import { EducationForm } from '../components/builder/EducationForm';
 import { ExperienceForm } from '../components/builder/ExperienceForm';
 import { ProjectsForm } from '../components/builder/ProjectsForm';
 import { LivePreview } from '../components/builder/LivePreview';
+import { ATSScoreCard } from '../components/builder/ATSScoreCard';
 
 export function Builder() {
   const { data, setData, loadSample } = useResume();
@@ -97,6 +98,7 @@ export function Builder() {
         </aside>
 
         <main className="builder-preview">
+          <ATSScoreCard data={data} />
           <LivePreview data={data} />
         </main>
       </div>

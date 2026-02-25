@@ -24,6 +24,23 @@ export function LivePreview({ data }: Props) {
           </section>
         )}
 
+        {data.education.length > 0 && (
+          <section className="preview-section">
+            <h2>Education</h2>
+            {data.education.map((edu) => (
+              <div key={edu.id} className="preview-entry">
+                <div className="preview-entry-header">
+                  <strong>{edu.degree} {edu.field}</strong>
+                  <span>{edu.institution}</span>
+                  <span className="preview-meta">
+                    {edu.startDate} – {edu.endDate}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </section>
+        )}
+
         {data.experience.length > 0 && (
           <section className="preview-section">
             <h2>Experience</h2>
@@ -37,23 +54,6 @@ export function LivePreview({ data }: Props) {
                   </span>
                 </div>
                 {exp.description && <p>{exp.description}</p>}
-              </div>
-            ))}
-          </section>
-        )}
-
-        {data.education.length > 0 && (
-          <section className="preview-section">
-            <h2>Education</h2>
-            {data.education.map((edu) => (
-              <div key={edu.id} className="preview-entry">
-                <div className="preview-entry-header">
-                  <strong>{edu.degree} {edu.field}</strong>
-                  <span>{edu.institution}</span>
-                  <span className="preview-meta">
-                    {edu.startDate} – {edu.endDate}
-                  </span>
-                </div>
               </div>
             ))}
           </section>

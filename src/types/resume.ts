@@ -60,7 +60,7 @@ export const sampleResume = (): ResumeData => ({
     location: 'San Francisco, CA',
   },
   summary:
-    'Full-stack developer with 5+ years of experience building scalable web applications. Passionate about clean code and user-centric design.',
+    'Full-stack developer with 5+ years of experience building scalable web applications. Passionate about clean code and user-centric design. Led teams of 4–6 engineers and shipped features used by millions. Strong in React, TypeScript, and Node.js. Focused on performance, accessibility, and maintainability.',
   education: [
     {
       id: 'edu-1',
@@ -79,7 +79,7 @@ export const sampleResume = (): ResumeData => ({
       location: 'San Francisco, CA',
       startDate: '2022',
       endDate: 'Present',
-      description: 'Lead development of customer-facing web applications.',
+      description: 'Lead development of customer-facing web applications. Reduced load time by 30%.',
     },
     {
       id: 'exp-2',
@@ -95,11 +95,17 @@ export const sampleResume = (): ResumeData => ({
     {
       id: 'proj-1',
       name: 'Open Source Library',
-      description: 'A widely-used React component library.',
+      description: 'A widely-used React component library with 10k+ downloads.',
       url: 'https://github.com/janedoe/library',
     },
+    {
+      id: 'proj-2',
+      name: 'Dashboard Tool',
+      description: 'Internal analytics dashboard serving 50+ users.',
+      url: 'https://github.com/janedoe/dashboard',
+    },
   ],
-  skills: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'AWS'],
+  skills: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'AWS', 'Docker', 'GraphQL', 'Jest'],
   links: {
     github: 'https://github.com/janedoe',
     linkedin: 'https://linkedin.com/in/janedoe',
