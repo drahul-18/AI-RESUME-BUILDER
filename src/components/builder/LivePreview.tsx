@@ -1,3 +1,4 @@
+import { useTemplate } from '../../context/TemplateContext';
 import type { ResumeData } from '../../types/resume';
 
 interface Props {
@@ -5,8 +6,10 @@ interface Props {
 }
 
 export function LivePreview({ data }: Props) {
+  const { template } = useTemplate();
+
   return (
-    <div className="live-preview">
+    <div className={`live-preview live-preview--${template}`} data-template={template}>
       <div className="live-preview-paper">
         <header className="preview-header">
           <h1>{data.personal.name || 'Your Name'}</h1>

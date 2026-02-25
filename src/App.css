@@ -391,11 +391,38 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .builder-header h1 {
   margin: 0;
   font-size: 1.5rem;
+}
+
+.builder-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Template Tabs */
+.template-tabs {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.template-tab {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  background: transparent;
+}
+
+.template-tab.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
 }
 
 .btn-load-sample {
@@ -575,6 +602,49 @@
   margin-bottom: 0;
 }
 
+.ats-improvements {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.ats-improvements-label {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0.95;
+}
+
+.ats-improvements-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+.ats-improvements-list li {
+  margin-bottom: 0.25rem;
+}
+
+.ats-improvements-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Bullet Guidance */
+.bullet-guidance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-top: 0.35rem;
+}
+
+.bullet-hint {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  font-style: italic;
+}
+
 .live-preview {
   background: #fff;
   color: #111;
@@ -647,6 +717,54 @@
   gap: 1rem;
 }
 
+/* Template variants: Live Preview */
+.live-preview--classic {
+  /* default - no overrides */
+}
+
+.live-preview--modern {
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.live-preview--modern .live-preview-paper {
+  padding: 2.5rem;
+}
+
+.live-preview--modern .preview-header h1 {
+  font-size: 1.75rem;
+  letter-spacing: -0.02em;
+}
+
+.live-preview--modern .preview-section {
+  margin-top: 1.5rem;
+}
+
+.live-preview--modern .preview-section h2 {
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+}
+
+.live-preview--minimal .live-preview-paper {
+  padding: 1.5rem;
+}
+
+.live-preview--minimal .preview-header h1 {
+  font-size: 1.35rem;
+}
+
+.live-preview--minimal .preview-section {
+  margin-top: 0.9rem;
+}
+
+.live-preview--minimal .preview-section h2 {
+  font-size: 0.85rem;
+}
+
+.live-preview--minimal .preview-section p,
+.live-preview--minimal .preview-meta {
+  font-size: 0.85rem;
+}
+
 .preview-links a {
   color: #111;
 }
@@ -656,6 +774,13 @@
   min-height: calc(100vh - 60px);
   padding: 2rem;
   background: #fafafa;
+}
+
+.preview-page-header {
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  justify-content: flex-end;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -747,6 +872,35 @@
 
 .preview-resume-links a:hover {
   opacity: 0.8;
+}
+
+/* Template variants: Preview Page */
+.preview-page-resume--classic {
+  /* default */
+}
+
+.preview-page-resume--modern {
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.preview-page-resume--modern .preview-resume-header h1 {
+  font-size: 24pt;
+}
+
+.preview-page-resume--modern section {
+  margin-top: 1.5rem;
+}
+
+.preview-page-resume--minimal {
+  font-size: 10pt;
+}
+
+.preview-page-resume--minimal .preview-resume-header h1 {
+  font-size: 18pt;
+}
+
+.preview-page-resume--minimal section {
+  margin-top: 0.9rem;
 }
 
 /* Resume Proof */

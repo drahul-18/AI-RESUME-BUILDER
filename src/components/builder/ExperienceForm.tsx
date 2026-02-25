@@ -1,4 +1,5 @@
 import type { ExperienceEntry } from '../../types/resume';
+import { needsActionVerb, needsMeasurableImpact } from '../../utils/bulletGuidance';
 
 interface Props {
   entries: ExperienceEntry[];
@@ -78,9 +79,19 @@ export function ExperienceForm({ entries, onChange }: Props) {
               <textarea
                 value={entry.description}
                 onChange={(e) => update(entry.id, { description: e.target.value })}
-                placeholder="Key responsibilities and achievements"
+                placeholder="Key responsibilities and achievements (one per line)"
                 rows={3}
               />
+              {entry.description && (
+                <div className="bullet-guidance">
+                  {needsActionVerb(entry.description) && (
+                    <span className="bullet-hint">Start with a strong action verb.</span>
+                  )}
+                  {needsMeasurableImpact(entry.description) && (
+                    <span className="bullet-hint">Add measurable impact (numbers).</span>
+                  )}
+                </div>
+              )}
             </div>
           </div>
           <button type="button" onClick={() => remove(entry.id)} className="btn-remove">

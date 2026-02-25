@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ArtifactProvider } from './context/ArtifactContext';
 import { ResumeProvider } from './context/ResumeContext';
+import { TemplateProvider } from './context/TemplateContext';
 import { ResumeLayout } from './components/ResumeLayout';
 import { Home } from './pages/Home';
 import { Builder } from './pages/Builder';
@@ -15,6 +16,7 @@ function App() {
   return (
     <ArtifactProvider>
       <ResumeProvider>
+        <TemplateProvider>
         <BrowserRouter>
           <Routes>
             <Route
@@ -61,6 +63,7 @@ function App() {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
+        </TemplateProvider>
       </ResumeProvider>
     </ArtifactProvider>
   );

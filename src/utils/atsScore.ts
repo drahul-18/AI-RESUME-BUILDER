@@ -92,3 +92,35 @@ export function getATSSuggestions(data: ResumeData): string[] {
   return suggestions.slice(0, 3);
 }
 
+/** Top 3 Improvements for the Improvement Panel */
+export function getTopImprovements(data: ResumeData): string[] {
+  const improvements: string[] = [];
+
+  if (data.projects.length < 2) {
+    improvements.push('Add at least 2 projects to strengthen your profile.');
+  }
+
+  const bullets = [
+    ...data.experience.map((e) => e.description),
+    ...data.projects.map((p) => p.description),
+  ];
+  if (!bullets.some((b) => b && /[\d%]|\bk\b/i.test(b))) {
+    improvements.push('Add measurable impact (numbers, %, metrics) in bullets.');
+  }
+
+  const summaryWords = data.summary.trim().split(/\s+/).filter(Boolean).length;
+  if (summaryWords < 40) {
+    improvements.push('Expand your summary to 40+ words for better impact.');
+  }
+
+  if (data.skills.length < 8) {
+    improvements.push('Expand skills list to 8+ items.');
+  }
+
+  if (data.experience.length < 1) {
+    improvements.push('Add internship or project work as experience.');
+  }
+
+  return improvements.slice(0, 3);
+}
+

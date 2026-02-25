@@ -1,9 +1,13 @@
 import { useResume } from '../context/ResumeContext';
+import { useTemplate } from '../context/TemplateContext';
+import { TemplateTabs } from '../components/builder/TemplateTabs';
 import type { ResumeData } from '../types/resume';
 
 function PreviewResume({ data }: { data: ResumeData }) {
+  const { template } = useTemplate();
+
   return (
-    <article className="preview-page-resume">
+    <article className={`preview-page-resume preview-page-resume--${template}`} data-template={template}>
       <header className="preview-resume-header">
         <h1>{data.personal.name || 'Your Name'}</h1>
         <div className="preview-resume-contact">
@@ -52,8 +56,8 @@ function PreviewResume({ data }: { data: ResumeData }) {
               {exp.description && <p>{exp.description}</p>}
             </div>
           ))}
-          </section>
-        )}
+        </section>
+      )}
 
       {data.projects.length > 0 && (
         <section>
@@ -95,6 +99,9 @@ export function Preview() {
 
   return (
     <div className="preview-page">
+      <div className="preview-page-header">
+        <TemplateTabs />
+      </div>
       <div className="preview-page-inner">
         <PreviewResume data={data} />
       </div>

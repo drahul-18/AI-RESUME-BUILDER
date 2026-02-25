@@ -5,6 +5,7 @@ import { ExperienceForm } from '../components/builder/ExperienceForm';
 import { ProjectsForm } from '../components/builder/ProjectsForm';
 import { LivePreview } from '../components/builder/LivePreview';
 import { ATSScoreCard } from '../components/builder/ATSScoreCard';
+import { TemplateTabs } from '../components/builder/TemplateTabs';
 
 export function Builder() {
   const { data, setData, loadSample } = useResume();
@@ -13,9 +14,12 @@ export function Builder() {
     <div className="builder-page">
       <div className="builder-header">
         <h1>Resume Builder</h1>
-        <button type="button" onClick={loadSample} className="btn-load-sample">
+        <div className="builder-header-actions">
+          <TemplateTabs />
+          <button type="button" onClick={loadSample} className="btn-load-sample">
           Load Sample Data
         </button>
+        </div>
       </div>
 
       <div className="builder-columns">
