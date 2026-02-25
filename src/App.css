@@ -780,7 +780,28 @@
   max-width: 700px;
   margin: 0 auto 1.5rem;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.preview-export-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn-export {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.preview-incomplete-warning {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  font-style: italic;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -917,4 +938,70 @@
 
 .resume-proof-page p {
   opacity: 0.85;
+}
+
+/* Print Styling */
+@media print {
+  .no-print,
+  .app-nav,
+  .preview-page-header {
+    display: none !important;
+  }
+
+  body,
+  .resume-layout,
+  .resume-layout-content,
+  .preview-page {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .preview-page {
+    padding: 0 !important;
+    min-height: auto !important;
+  }
+
+  .preview-page-inner {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0.5in !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .preview-page-resume {
+    font-family: Georgia, 'Times New Roman', serif !important;
+    font-size: 11pt !important;
+    color: #000 !important;
+  }
+
+  .preview-page-resume section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .preview-resume-entry {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .preview-resume-links a {
+    color: #000 !important;
+  }
+
+  .preview-page-resume section h2 {
+    border-bottom-color: #000 !important;
+  }
+}
+
+/* Layout precision: prevent overflow and overlaps */
+.preview-page-resume section {
+  overflow: hidden;
+}
+
+.preview-page-resume p,
+.preview-page-resume .preview-resume-entry-head {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }

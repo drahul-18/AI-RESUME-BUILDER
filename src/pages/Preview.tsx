@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { useResume } from '../context/ResumeContext';
 import { useTemplate } from '../context/TemplateContext';
 import { TemplateTabs } from '../components/builder/TemplateTabs';
+import { resumeToPlainText, isResumeIncomplete } from '../utils/exportResume';
 import type { ResumeData } from '../types/resume';
 
 function PreviewResume({ data }: { data: ResumeData }) {
@@ -96,13 +98,48 @@ function PreviewResume({ data }: { data: ResumeData }) {
 
 export function Preview() {
   const { data } = useResume();
+  const [showIncompleteWarning, setShowIncompleteWarning] = useState(false);
+
+  const handlePrint = () => {
+    if (isResumeIncomplete(data)) setShowIncompleteWarning(true);
+    window.print();
+  };
+
+  const handleCopyText = async () => {
+    if (isResumeIncomplete(data)) setShowIncompleteWarning(true);
+    const text = resumeToPlainText(data);
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      // fallback for older browsers
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+  };
 
   return (
     <div className="preview-page">
-      <div className="preview-page-header">
+      <div className="preview-page-header no-print">
         <TemplateTabs />
+        <div className="preview-export-actions">
+          {showIncompleteWarning && (
+            <span className="preview-incomplete-warning">
+              Your resume may look incomplete.
+            </span>
+          )}
+          <button type="button" onClick={handlePrint} className="btn-export">
+            Print / Save as PDF
+          </button>
+          <button type="button" onClick={handleCopyText} className="btn-export">
+            Copy Resume as Text
+          </button>
+        </div>
       </div>
-      <div className="preview-page-inner">
+      <div className="preview-page-inner" id="resume-print-area">
         <PreviewResume data={data} />
       </div>
     </div>
