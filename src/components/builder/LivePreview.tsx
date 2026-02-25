@@ -66,21 +66,70 @@ export function LivePreview({ data }: Props) {
           <section className="preview-section">
             <h2>Projects</h2>
             {data.projects.map((proj) => (
-              <div key={proj.id} className="preview-entry">
-                <div className="preview-entry-header">
+              <div key={proj.id} className="preview-project-card">
+                <div className="preview-project-header">
                   <strong>{proj.name}</strong>
-                  {proj.url && <a href={proj.url} target="_blank" rel="noreferrer">{proj.url}</a>}
+                  <div className="preview-project-links">
+                    {proj.liveUrl && (
+                      <a href={proj.liveUrl} target="_blank" rel="noreferrer" title="Live">
+                        ↗
+                      </a>
+                    )}
+                    {proj.githubUrl && (
+                      <a href={proj.githubUrl} target="_blank" rel="noreferrer" title="GitHub">
+                        ⌘
+                      </a>
+                    )}
+                  </div>
                 </div>
                 {proj.description && <p>{proj.description}</p>}
+                {proj.techStack?.length > 0 && (
+                  <div className="preview-project-tech">
+                    {proj.techStack.map((t) => (
+                      <span key={t} className="preview-tech-pill">{t}</span>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </section>
         )}
 
-        {data.skills.length > 0 && (
+        {(data.skills.technical.length > 0 || data.skills.soft.length > 0 || data.skills.tools.length > 0) && (
           <section className="preview-section">
             <h2>Skills</h2>
-            <p>{data.skills.join(', ')}</p>
+            <div className="preview-skills-grouped">
+              {data.skills.technical.length > 0 && (
+                <div className="preview-skill-group">
+                  <span className="preview-skill-label">Technical</span>
+                  <div className="preview-skill-pills">
+                    {data.skills.technical.map((s) => (
+                      <span key={s} className="preview-skill-pill">{s}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {data.skills.soft.length > 0 && (
+                <div className="preview-skill-group">
+                  <span className="preview-skill-label">Soft</span>
+                  <div className="preview-skill-pills">
+                    {data.skills.soft.map((s) => (
+                      <span key={s} className="preview-skill-pill">{s}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {data.skills.tools.length > 0 && (
+                <div className="preview-skill-group">
+                  <span className="preview-skill-label">Tools</span>
+                  <div className="preview-skill-pills">
+                    {data.skills.tools.map((s) => (
+                      <span key={s} className="preview-skill-pill">{s}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </section>
         )}
 

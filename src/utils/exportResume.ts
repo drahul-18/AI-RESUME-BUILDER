@@ -1,4 +1,5 @@
 import type { ResumeData } from '../types/resume';
+import { getTotalSkillCount } from '../types/resume';
 
 /** Generate plain-text version of resume for copy */
 export function resumeToPlainText(data: ResumeData): string {
@@ -60,7 +61,9 @@ export function resumeToPlainText(data: ResumeData): string {
     lines.push('--------');
     data.projects.forEach((proj) => {
       lines.push(proj.name);
-      if (proj.url?.trim()) lines.push(proj.url);
+      if (proj.githubUrl?.trim()) lines.push(proj.githubUrl);
+      if (proj.liveUrl?.trim()) lines.push(proj.liveUrl);
+      if (proj.techStack?.length) lines.push(proj.techStack.join(', '));
       if (proj.description?.trim()) {
         proj.description.split('\n').forEach((line) => {
           if (line.trim()) lines.push(`  • ${line.trim()}`);
@@ -70,10 +73,16 @@ export function resumeToPlainText(data: ResumeData): string {
     });
   }
 
-  if (data.skills.length > 0) {
+  const totalSkills = getTotalSkillCount(data.skills);
+  if (totalSkills > 0) {
     lines.push('SKILLS');
     lines.push('------');
-    lines.push(data.skills.join(', '));
+    const allSkills = [
+      ...data.skills.technical,
+      ...data.skills.soft,
+      ...data.skills.tools,
+    ];
+    lines.push(allSkills.join(', '));
     lines.push('');
   }
 

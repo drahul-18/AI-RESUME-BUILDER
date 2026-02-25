@@ -17,11 +17,19 @@ export interface ExperienceEntry {
   description: string;
 }
 
+export interface SkillsGrouped {
+  technical: string[];
+  soft: string[];
+  tools: string[];
+}
+
 export interface ProjectEntry {
   id: string;
   name: string;
   description: string;
-  url: string;
+  techStack: string[];
+  liveUrl: string;
+  githubUrl: string;
 }
 
 export interface ResumeData {
@@ -35,7 +43,7 @@ export interface ResumeData {
   education: EducationEntry[];
   experience: ExperienceEntry[];
   projects: ProjectEntry[];
-  skills: string[];
+  skills: SkillsGrouped;
   links: {
     github: string;
     linkedin: string;
@@ -48,7 +56,7 @@ export const emptyResume = (): ResumeData => ({
   education: [],
   experience: [],
   projects: [],
-  skills: [],
+  skills: { technical: [], soft: [], tools: [] },
   links: { github: '', linkedin: '' },
 });
 
@@ -96,18 +104,31 @@ export const sampleResume = (): ResumeData => ({
       id: 'proj-1',
       name: 'Open Source Library',
       description: 'A widely-used React component library with 10k+ downloads.',
-      url: 'https://github.com/janedoe/library',
+      techStack: ['React', 'TypeScript'],
+      liveUrl: '',
+      githubUrl: 'https://github.com/janedoe/library',
     },
     {
       id: 'proj-2',
       name: 'Dashboard Tool',
       description: 'Internal analytics dashboard serving 50+ users.',
-      url: 'https://github.com/janedoe/dashboard',
+      techStack: ['Node.js', 'PostgreSQL'],
+      liveUrl: 'https://dashboard.example.com',
+      githubUrl: 'https://github.com/janedoe/dashboard',
     },
   ],
-  skills: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'AWS', 'Docker', 'GraphQL', 'Jest'],
+  skills: {
+    technical: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'GraphQL'],
+    soft: ['Team Leadership', 'Problem Solving'],
+    tools: ['Git', 'Docker', 'AWS', 'Jest'],
+  },
   links: {
     github: 'https://github.com/janedoe',
     linkedin: 'https://linkedin.com/in/janedoe',
   },
 });
+
+/** Total skill count across all categories */
+export function getTotalSkillCount(skills: SkillsGrouped): number {
+  return skills.technical.length + skills.soft.length + skills.tools.length;
+}

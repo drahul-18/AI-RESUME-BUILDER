@@ -543,6 +543,124 @@
   color: var(--accent);
 }
 
+/* Skill Tag Input */
+.skill-tag-input {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-input);
+}
+
+.skill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.85rem;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 9999px;
+}
+
+.skill-chip-remove {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  opacity: 0.7;
+}
+
+.skill-chip-remove:hover {
+  opacity: 1;
+}
+
+.skill-tag-input-field {
+  flex: 1;
+  min-width: 120px;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+/* Skills Accordion */
+.skills-category {
+  margin-top: 1rem;
+}
+
+.skills-category h4 {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.btn-suggest-skills {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+/* Projects Accordion */
+.project-accordion-item {
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.project-accordion-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: rgba(0, 0, 0, 0.03);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.project-accordion-header:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.project-accordion-header.expanded {
+  border-bottom: 1px solid var(--border);
+}
+
+.project-accordion-title {
+  font-weight: 500;
+}
+
+.btn-delete-project {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+.project-accordion-body {
+  padding: 1rem;
+}
+
+.char-counter {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 0.25rem;
+  display: block;
+}
+
 /* Live Preview (Builder) */
 .builder-preview {
   position: sticky;
@@ -715,6 +833,80 @@
 .preview-links {
   display: flex;
   gap: 1rem;
+}
+
+/* Live Preview: Project cards */
+.preview-project-card {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+}
+
+.preview-project-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.preview-project-links {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.preview-project-links a {
+  color: #111;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.preview-project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.preview-tech-pill {
+  padding: 0.15rem 0.5rem;
+  font-size: 0.75rem;
+  background: #f0f0f0;
+  border-radius: 9999px;
+}
+
+/* Live Preview: Grouped skills */
+.preview-skills-grouped {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.preview-skill-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.preview-skill-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.8;
+  margin-right: 0.25rem;
+}
+
+.preview-skill-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.preview-skill-pill {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8rem;
+  background: #f0f0f0;
+  border-radius: 9999px;
 }
 
 /* Template variants: Live Preview */
@@ -893,6 +1085,72 @@
 
 .preview-resume-links a:hover {
   opacity: 0.8;
+}
+
+.preview-resume-project-card {
+  margin-top: 0.6rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.preview-resume-project-card:last-child {
+  border-bottom: none;
+}
+
+.preview-resume-project-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.preview-resume-project-links {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.preview-resume-project-links a {
+  color: inherit;
+}
+
+.preview-resume-tech-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+}
+
+.preview-resume-tech-pill {
+  padding: 0.15rem 0.4rem;
+  font-size: 9pt;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+}
+
+.preview-resume-skills-grouped {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.preview-resume-skill-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.preview-resume-skill-label {
+  font-size: 9pt;
+  font-weight: 600;
+  margin-right: 0.25rem;
+}
+
+.preview-resume-skill-pill {
+  padding: 0.15rem 0.4rem;
+  font-size: 9pt;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
 }
 
 /* Template variants: Preview Page */

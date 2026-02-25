@@ -2,7 +2,8 @@ import { useResume } from '../context/ResumeContext';
 import { PersonalInfoForm } from '../components/builder/PersonalInfoForm';
 import { EducationForm } from '../components/builder/EducationForm';
 import { ExperienceForm } from '../components/builder/ExperienceForm';
-import { ProjectsForm } from '../components/builder/ProjectsForm';
+import { ProjectsFormSection } from '../components/builder/ProjectsFormSection';
+import { SkillsFormSection } from '../components/builder/SkillsFormSection';
 import { LivePreview } from '../components/builder/LivePreview';
 import { ATSScoreCard } from '../components/builder/ATSScoreCard';
 import { TemplateTabs } from '../components/builder/TemplateTabs';
@@ -49,24 +50,15 @@ export function Builder() {
             onChange={(experience) => setData((prev) => ({ ...prev, experience }))}
           />
 
-          <ProjectsForm
+          <ProjectsFormSection
             entries={data.projects}
             onChange={(projects) => setData((prev) => ({ ...prev, projects }))}
           />
 
-          <section className="form-section">
-            <h3>Skills</h3>
-            <input
-              value={data.skills.join(', ')}
-              onChange={(e) =>
-                setData((prev) => ({
-                  ...prev,
-                  skills: e.target.value.split(',').map((s) => s.trim()).filter(Boolean),
-                }))
-              }
-              placeholder="React, TypeScript, Node.js"
-            />
-          </section>
+          <SkillsFormSection
+            skills={data.skills}
+            onChange={(skills) => setData((prev) => ({ ...prev, skills }))}
+          />
 
           <section className="form-section">
             <h3>Links</h3>

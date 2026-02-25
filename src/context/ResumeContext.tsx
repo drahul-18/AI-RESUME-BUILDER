@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useCallback, useEffect } from 'rea
 import type { ReactNode } from 'react';
 import type { ResumeData } from '../types/resume';
 import { emptyResume, sampleResume } from '../types/resume';
+import { migrateResume } from '../utils/migrateResume';
 
 interface ResumeContextType {
   data: ResumeData;
@@ -15,18 +16,8 @@ function loadFromStorage(): ResumeData {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return emptyResume();
-    const parsed = JSON.parse(raw) as ResumeData;
-    if (parsed && typeof parsed === 'object') {
-      return {
-        personal: parsed.personal ?? emptyResume().personal,
-        summary: typeof parsed.summary === 'string' ? parsed.summary : '',
-        education: Array.isArray(parsed.education) ? parsed.education : [],
-        experience: Array.isArray(parsed.experience) ? parsed.experience : [],
-        projects: Array.isArray(parsed.projects) ? parsed.projects : [],
-        skills: Array.isArray(parsed.skills) ? parsed.skills : [],
-        links: parsed.links ?? emptyResume().links,
-      };
-    }
+    const parsed = JSON.parse(raw) as unknown;
+    return migrateResume(parsed);
   } catch {
     // ignore parse errors
   }

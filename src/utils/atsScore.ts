@@ -1,4 +1,5 @@
 import type { ResumeData } from '../types/resume';
+import { getTotalSkillCount } from '../types/resume';
 
 /** Check if text contains measurable impact (numbers, %, k, etc.) */
 function hasMeasurableImpact(text: string): boolean {
@@ -35,7 +36,7 @@ export function computeATSScore(data: ResumeData): number {
   if (data.experience.length >= 1) score += 10;
 
   // +10 if skills list has ≥ 8 items
-  if (data.skills.length >= 8) score += 10;
+  if (getTotalSkillCount(data.skills) >= 8) score += 10;
 
   // +10 if GitHub or LinkedIn link exists
   if (data.links.github?.trim() || data.links.linkedin?.trim()) score += 10;
@@ -73,7 +74,7 @@ export function getATSSuggestions(data: ResumeData): string[] {
     suggestions.push('Add measurable impact (numbers) in bullets.');
   }
 
-  if (data.skills.length < 8) {
+  if (getTotalSkillCount(data.skills) < 8) {
     suggestions.push('Add more skills (target 8+).');
   }
 
@@ -113,7 +114,7 @@ export function getTopImprovements(data: ResumeData): string[] {
     improvements.push('Expand your summary to 40+ words for better impact.');
   }
 
-  if (data.skills.length < 8) {
+  if (getTotalSkillCount(data.skills) < 8) {
     improvements.push('Expand skills list to 8+ items.');
   }
 
