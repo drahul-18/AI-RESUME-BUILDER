@@ -1,0 +1,281 @@
+/* Premium Layout */
+.premium-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-main);
+}
+
+/* Top Bar */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-topbar);
+  border-bottom: 1px solid var(--border);
+}
+
+.top-bar-left {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.top-bar-center {
+  font-size: 0.95em;
+  opacity: 0.9;
+}
+
+.top-bar-right .status-badge {
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  text-transform: capitalize;
+}
+
+/* Context Header */
+.context-header-wrap {
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-header);
+  border-bottom: 1px solid var(--border);
+}
+
+.context-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.context-header p {
+  margin: 0.25rem 0 0;
+  font-size: 0.9em;
+  opacity: 0.9;
+}
+
+/* Workspace Row: 70% main + 30% panel */
+.workspace-row {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.main-workspace {
+  flex: 0 0 70%;
+  padding: 1.5rem;
+  overflow-y: auto;
+  border-right: 1px solid var(--border);
+}
+
+.build-panel-wrap {
+  flex: 0 0 30%;
+  padding: 1rem;
+  overflow-y: auto;
+  background: var(--bg-panel);
+}
+
+/* Build Panel */
+.build-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.build-panel label {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.build-panel textarea {
+  width: 100%;
+  padding: 0.5rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  resize: vertical;
+  background: var(--bg-input);
+  color: inherit;
+}
+
+.build-panel-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.build-panel-actions button {
+  padding: 0.4rem 0.8rem;
+}
+
+.build-panel-actions button.primary {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.build-panel-feedback {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.build-panel-feedback .feedback-label {
+  font-size: 0.85rem;
+  width: 100%;
+}
+
+.build-panel-feedback button {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.85rem;
+}
+
+.build-panel-feedback button.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+/* Proof Footer */
+.proof-footer {
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-footer);
+  border-top: 1px solid var(--border);
+}
+
+.proof-footer a {
+  font-size: 0.9em;
+}
+
+/* Step Content */
+.step-content {
+  max-width: 48rem;
+}
+
+.step-hint {
+  font-size: 0.9em;
+  opacity: 0.9;
+  margin: 2rem 0 1rem;
+}
+
+.step-nav {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.step-nav button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.gate-message {
+  margin-top: 1rem;
+  font-size: 0.85em;
+  color: var(--accent);
+}
+
+/* Proof Page */
+.proof-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-topbar);
+  border-bottom: 1px solid var(--border);
+  margin: -2rem -2rem 2rem -2rem;
+}
+
+.proof-top-bar a {
+  font-weight: 600;
+}
+
+.proof-page {
+  min-height: 100vh;
+  padding: 2rem;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.proof-page-header {
+  margin-bottom: 2rem;
+}
+
+.proof-page-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.proof-page-header p {
+  margin: 0.5rem 0 0;
+  opacity: 0.9;
+}
+
+.proof-step-status {
+  margin-bottom: 2rem;
+}
+
+.proof-step-status h2,
+.proof-links h2 {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+
+.proof-step-status ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.proof-step-status li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.proof-step-status li.complete {
+  color: var(--status-complete);
+}
+
+.proof-step-status li.pending {
+  opacity: 0.7;
+}
+
+.proof-links {
+  margin-bottom: 2rem;
+}
+
+.proof-input-group {
+  margin-bottom: 1rem;
+}
+
+.proof-input-group label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.proof-input-group input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-input);
+  color: inherit;
+}
+
+.proof-actions {
+  margin-top: 2rem;
+}
+
+.copy-final-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.copy-final-btn:hover {
+  opacity: 0.9;
+}
